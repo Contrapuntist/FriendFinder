@@ -5,8 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script> 
 </head>
 <body>
-    <h1>Survey Page live</h1>
+    <h1>Survey Page live</h1> 
+    <h3>Question 1</h3>
+    <h4></h4>
+    <select data-placeholder="" class="chosen-select" id="q1" style="display: none;">
+		<option value=""></option>
+        <option value="1">1 (Strongly Disagree)</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5 (Strongly Agree)</option>
+    </select>
+    <div class="chosen-container chosen-container-single" style="width: 157px;" title="" id="q1_chosen">
+        <a class="chosen-single chosen-default">
+            <span>Select an Option</span><div><b></b></div>
+        </a>
+        <div class="chosen-drop">
+            <div class="chosen-search">
+                <input type="text" autocomplete="off">
+            </div>
+            <ul class="chosen-results"></ul>
+        </div>
+    </div>
 </body>
 </html>
