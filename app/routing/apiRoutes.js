@@ -1,39 +1,16 @@
 var friends = require("../data/friends.js");
-var waitListData = require("../data/waitinglistData");
 
-// API routing setup
+// API routing setup for friends API
 
 module.exports = function(app) {
 
     // GET routing   
-    app.get("/api/tables", function(req, res) {
+    app.get("/api/friends", function(req, res) {
         res.json(tableData);
     });
 
-    app.get("/api/waitlist", function(req, res) {
-        res.json(waitListData);
-    });
-
-  // API POST Requests
-  // Below code handles when a user submits a form and thus submits data to the server.
-  // In each of the below cases, when a user submits form data (a JSON object)
-  // ...the JSON is pushed to the appropriate JavaScript array
-  // (ex. User fills out a reservation request... this data is then sent to the server...
-  // Then the server saves the data to the tableData array)
-  // ---------------------------------------------------------------------------
-
-
-    app.post("/api/tables", function(req, res) {
+    app.post("/api/friends", function(req, res) {
         tableData.push(req.body);
   });
 
-  // ---------------------------------------------------------------------------
-  // I added this below code so you could clear out the table while working with the functionality.
-  // Don"t worry about it!
-
-  app.post("/api/clear", function() {
-      waitListData = [];
-
-    console.log(tableData);
-  });
 };
