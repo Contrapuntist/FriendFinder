@@ -4,32 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script> 
+    <title>Document</title> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>  -->
 </head>
 <body>
-    <h1>Survey Page live</h1> 
-    <h3>Question 1</h3>
-    <h4></h4>
-    <select data-placeholder="" class="chosen-select" id="q1" style="display: none;">
-		<option value=""></option>
-        <option value="1">1 (Strongly Disagree)</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5 (Strongly Agree)</option>
-    </select>
-    <div class="chosen-container chosen-container-single" style="width: 157px;" title="" id="q1_chosen">
-        <a class="chosen-single chosen-default">
-            <span>Select an Option</span><div><b></b></div>
-        </a>
-        <div class="chosen-drop">
-            <div class="chosen-search">
-                <input type="text" autocomplete="off">
-            </div>
-            <ul class="chosen-results"></ul>
-        </div>
+    <div class="container">
+        <h1>Friend Finder Survey</h1>
+        <p>Let's find you a friend.</p> 
+        <hr>
+        <h2>Let's Learn About You</h2>
+        <br>
+        <h3>Your Name</h3>
+        <input type="text" id="name" class="form-control" placeholder="First and Last Name">
+        <h3>Your Name</h3>
+        <input type="text" id="name" class="form-control">
+        <h3>Question 1</h3>
+        <h4>my question text goes here</h4> 
+        <form action="">
+            <div class="dropdown">
+                <div class="form-group">
+                    <label for="q1">Select a value</label>
+                    <select class="form-control" name="q1" id="q1">
+                        <option value="1">1 (Strongly Disagree)</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 (Strongly Agree)</option>
+                    </select> 
+                </div>
+            </div>        
+       </form>
+        
+        <button id="submit" type="button" class="btn btn-large btn-block btn-danger">button</button>
+        
     </div>
-</body>
+
+ <script> 
+        $('#submit').on('click', function() {
+            var droptest = $('#q1').val();
+            console.log('value = '+ droptest); 
+        }); 
+    </script>
+</body> 
 </html>
