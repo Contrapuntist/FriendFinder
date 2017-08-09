@@ -7,6 +7,7 @@ module.exports = function(app) {
     // GET routing   
     app.get("/api/friends", function(req, res) {
         res.json(friends.friendsData);
+        
     });
 
     app.post("/api/friends", function(req, res) {

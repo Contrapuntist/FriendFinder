@@ -22,9 +22,9 @@
         <h2>Let's Learn About You</h2>
         <br>
         <h3>Your Name</h3>
-        <input type="text" id="name" class="form-control" placeholder="First and Last Name">
+        <input type="text" id="name" class="form-control" placeholder="First and Last Name" required>
         <h3>Your Picture</h3>
-        <input type="text" id="name" class="form-control" placeholder="URL with your photo">
+        <input type="text" id="name" class="form-control" placeholder="URL with your photo" required>
         <hr>
         <div>
             <h3>Question 1</h3>
@@ -163,7 +163,39 @@
         </div>
     </div>
 
-<script src="../data/applogic.js"></script>
+<!-- <script src="../data/applogic.js"></script> -->
  
+<script>
+    $(document).ready(function() {
+  
+    $('#submit').on('click', function() {  
+        event.preventDefault();
+        questionAmount = 10
+        var newFriend = {
+            name: $(name).val(),
+        } 
+        var testArr = [];
+        console.log(newFriend.name); 
+        for (var i = 0; i < questionAmount; i++) { 
+            let qval = '#q' + i
+            let droptest = $(qval).val();
+            testArr.push($(qval).val()); 
+            console.log('value = '+ droptest); 
+        } 
+        console.log(testArr);   
+    
+        // $.post("/api/friends", data, function (data) {
+        //         console.log(data); 
+        //     },
+        // );
+
+    });
+
+});
+
+
+</script>
+
+
 </body> 
 </html>
