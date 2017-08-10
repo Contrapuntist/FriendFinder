@@ -195,6 +195,26 @@
         </div>
     </div>
 
+    <div class="modal fade">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Your Match</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Name</p>
+                <div>PIC GOES HERE</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div> 
+
 <!-- <script src="../data/applogic.js"></script> -->
  
 <script>
@@ -205,12 +225,13 @@
         questionAmount = 10
         // var name = $("#name").val().trim();  
         var responseArray = [];
-        console.log(newFriend.name); 
+        // var testArr = []; 
         for (var i = 0; i < questionAmount; i++) { 
             let qval = '#q' + (i + 1)
-            let droptest = $(qval).val();
-            responseArray.push($(qval).val()); 
-            console.log('value = '+ droptest); 
+            let scoreVal = Number($(qval).val());
+            responseArray.push(scoreVal);
+            // testArr.push(scoreVal); 
+            console.log('value = '+ scoreVal); 
         }
         
         var newFriend = {
@@ -218,9 +239,10 @@
             "photo": $('#picurl').val().trim(),
             "scores": responseArray 
         }  
+        // console.log(testArr);  
         console.log(newFriend);   
     
-        $.post("/api/friends", data, function (data) {
+        $.post("/api/friends", newFriend, function (data) {
                 console.log(data); 
         });
     });
