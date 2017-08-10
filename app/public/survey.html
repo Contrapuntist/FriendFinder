@@ -24,7 +24,7 @@
         <h3>Your Name</h3>
         <input type="text" id="name" class="form-control" placeholder="First and Last Name" required>
         <h3>Your Picture</h3>
-        <input type="text" id="name" class="form-control" placeholder="URL with your photo" required>
+        <input type="text" id="picurl" class="form-control" placeholder="URL with your photo" required>
         <hr>
         <div>
             <h3>Question 1</h3>
@@ -143,8 +143,40 @@
             <h4>You rarely get carried away by fantasies and ideas.</h4>         
             <div class="dropdown">
                 <div class="form-group">
-                    <label for="q1">Select a value</label>
+                    <label for="q8">Select a value</label>
                     <select class="form-control" name="q8" id="q8">
+                        <option value="1">1 (Strongly Disagree)</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 (Strongly Agree)</option>
+                    </select> 
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3>Question 9</h3>
+            <h4>You think that everyone’s views should be respected regardless of whether they are supported by facts or not.</h4>         
+            <div class="dropdown">
+                <div class="form-group">
+                    <label for="q9">Select a value</label>
+                    <select class="form-control" name="q9" id="q9">
+                        <option value="1">1 (Strongly Disagree)</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 (Strongly Agree)</option>
+                    </select> 
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3>Question 10</h3>
+            <h4>You feel more energetic after spending time with a group of people.</h4>         
+            <div class="dropdown">
+                <div class="form-group">
+                    <label for="q10">Select a value</label>
+                    <select class="form-control" name="q10" id="q10">
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -171,24 +203,26 @@
     $('#submit').on('click', function() {  
         event.preventDefault();
         questionAmount = 10
-        var newFriend = {
-            name: $(name).val(),
-        } 
-        var testArr = [];
+        // var name = $("#name").val().trim();  
+        var responseArray = [];
         console.log(newFriend.name); 
         for (var i = 0; i < questionAmount; i++) { 
-            let qval = '#q' + i
+            let qval = '#q' + (i + 1)
             let droptest = $(qval).val();
-            testArr.push($(qval).val()); 
+            responseArray.push($(qval).val()); 
             console.log('value = '+ droptest); 
-        } 
-        console.log(testArr);   
+        }
+        
+        var newFriend = {
+            "name": $("#name").val().trim(),
+            "photo": $('#picurl').val().trim(),
+            "scores": responseArray 
+        }  
+        console.log(newFriend);   
     
-        // $.post("/api/friends", data, function (data) {
-        //         console.log(data); 
-        //     },
-        // );
-
+        $.post("/api/friends", data, function (data) {
+                console.log(data); 
+        });
     });
 
 });
