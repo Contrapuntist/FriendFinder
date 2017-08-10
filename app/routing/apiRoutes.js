@@ -35,7 +35,7 @@ var matchMakerObj = {
     } 
 }
 
-matchMakerObj.checkCompatibility(testFriend, friends.friendsData);
+// matchMakerObj.checkCompatibility(testFriend, friends.friendsData);
 
 
 module.exports = function(app) {
@@ -47,9 +47,11 @@ module.exports = function(app) {
 
     // POST routing to API
     app.post("/api/friends", function(req, res) {
-            console.log(req);
-            friends.friendsData.push(req.body);
-            console.log(friends.friendsData); 
+        console.log(req.body);
+        matchMakerObj.checkCompatibility(req.body, friends.friendsData); 
+        friends.friendsData.push(req.body);
+        console.log(friends.friendsData);
+        res.json( matchMakerObj.friendMatch ) 
     });
 
 }; 
