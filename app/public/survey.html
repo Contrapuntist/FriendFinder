@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-    
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/0f168c5465.css">
 
 </head>
@@ -21,11 +19,16 @@
         <hr>
         <h2>Let's Learn About You</h2>
         <br>
-        <h3>Your Name</h3>
-        <input type="text" id="name" class="form-control" placeholder="First and Last Name" required>
-        <h3>Your Picture</h3>
-        <input type="text" id="picurl" class="form-control" placeholder="URL with your photo" required>
-        <hr>
+        <form role="form" id="newfriendform">
+        <div class="formgroup">
+            <h3>Your Name</h3>
+            <input type="text" id="name" class="form-control" placeholder="First and Last Name" required>
+        </div>
+        <div>
+            <h3>Your Picture</h3>
+            <input type="text" id="picurl" class="form-control" placeholder="URL with your photo" required>
+        </div>
+            <hr>
         <div>
             <h3>Question 1</h3>
             <h4>Your mind is always buzzing with unexplored ideas and plans</h4>
@@ -33,6 +36,7 @@
                 <div class="form-group">
                     <label for="q1">Select a value</label>
                     <select class="form-control" name="q1" id="q1">
+                        <option value="0"></option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -186,16 +190,17 @@
                 </div>
             </div>
         </div>
+        </form>
         <br>    
         <button type="submit" id="submit" type="button" class="btn btn-large btn-block btn-danger"><i class="fa fa-check-square-o" aria-hidden="true"></i> Submit</button>
         <div style="margin-bottom: 50px"></div>
         <hr>
         <div>
-            <p> <a href="#">Friend Finder API</a> | <a href="#">Github Repo</a></p>
+            <p> <a href="/api/friends">Friend Finder API</a> | <a href="https://github.com/Contrapuntist/FriendFinder" target="_blank">Github Repo</a></p>
         </div>
     </div>
 
-    <div class="modal fade">
+    <div class="modal fade" id="friend-match">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
@@ -205,8 +210,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Name</p>
-                <div>PIC GOES HERE</div>
+                <p id="friend-match-name">Name</p>
+                <div>
+                    <img id="friend-match-pic" src="" alt="friendmatch" width="200"> 
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -215,19 +222,25 @@
         </div>
     </div> 
 
-<!-- <script src="../data/applogic.js"></script> -->
+<!-- <script src="../data/frontend.js"></script>  -->
  
 <script>
-    $(document).ready(function() {
-  
+
+$(document).ready(function() {
+    
+    console.log('in doc ready');
+
     $('#submit').on('click', function() {  
         event.preventDefault();
-        questionAmount = 10
+        
+        $('#newfriendform').validate();
+        // validateForm();
+        var questionAmount = 10;
         // var name = $("#name").val().trim();  
         var responseArray = [];
         // var testArr = []; 
         for (var i = 0; i < questionAmount; i++) { 
-            let qval = '#q' + (i + 1)
+            let qval = '#q' + (i + 1);
             let scoreVal = Number($(qval).val());
             responseArray.push(scoreVal);
             // testArr.push(scoreVal); 
@@ -242,15 +255,31 @@
         // console.log(testArr);  
         console.log(newFriend);   
     
-        $.post("/api/friends", newFriend, function (data) {
-                console.log(data); 
-        });
+        $.post("/api/friends", newFriend).then( function (data) { 
+            console.log(data); 
+            showMatch(data);
+        });  
+    
     });
 
+    function showMatch (data) { 
+        $('#friend-match-name').text(data.name); 
+        $("#friend-match-pic").attr('src', data.photo);
+        $('#friend-match').modal('show');
+    } 
+
+    function validateForm() {
+    var x = $('#name').val().trim();
+    if (x == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+}
+ 
 });
 
 
-</script>
+</script> 
 
 
 </body> 

@@ -37,7 +37,6 @@ var matchMakerObj = {
 
 // matchMakerObj.checkCompatibility(testFriend, friends.friendsData);
 
-
 module.exports = function(app) {
 
     // GET routing for API   
