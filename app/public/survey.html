@@ -204,15 +204,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Your Match</h5>
+                <h3 class="modal-title">Your Match</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p id="friend-match-name">Name</p>
+                <h4 id="friend-match-name">Name</h4>
                 <div>
-                    <img id="friend-match-pic" src="" alt="friendmatch" width="200"> 
+                    <img id="friend-match-pic" src="" alt="friendmatchpic" width="250"> 
                 </div>
             </div>
             <div class="modal-footer">
@@ -233,12 +233,13 @@ $(document).ready(function() {
     $('#submit').on('click', function() {  
         event.preventDefault();
         
+        // FOR FORM VALIDATOR PLUGIN, NOT WORKING THOUGH
         // $('#newfriendform').validate();
         validateForm();
         var questionAmount = 10;
-        // var name = $("#name").val().trim();  
+          
         var responseArray = [];
-        // var testArr = []; 
+         
         for (var i = 0; i < questionAmount; i++) { 
             let qval = '#q' + (i + 1);
             let scoreVal = Number($(qval).val());
