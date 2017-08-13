@@ -36,7 +36,7 @@
                 <div class="form-group">
                     <label for="q1">Select a value</label>
                     <select class="form-control" name="q1" id="q1">
-                        <option value="0"></option>
+                        <option value=""></option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -53,6 +53,7 @@
                 <div class="form-group">
                     <label for="q2">Select a value</label>
                     <select class="form-control" name="q2" id="q2">
+                        <option value=""></option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -69,6 +70,7 @@
                 <div class="form-group">
                     <label for="q3">Select a value</label>
                     <select class="form-control" name="q3" id="q3">
+                        <option value=""></option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -85,6 +87,7 @@
                 <div class="form-group">
                     <label for="q4">Select a value</label>
                     <select class="form-control" name="q4" id="q4">
+                        <option value=""></option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -101,6 +104,7 @@
                 <div class="form-group">
                     <label for="q5">Select a value</label>
                     <select class="form-control" name="q5" id="q5">
+                        <option value=""></option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -117,6 +121,7 @@
                 <div class="form-group">
                     <label for="q6">Select a value</label>
                     <select class="form-control" name="q6" id="q6">
+                        <option value=""></option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -133,6 +138,7 @@
                 <div class="form-group">
                     <label for="q7">Select a value</label>
                     <select class="form-control" name="q7" id="q7">
+                        <option value=""></option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -149,6 +155,7 @@
                 <div class="form-group">
                     <label for="q8">Select a value</label>
                     <select class="form-control" name="q8" id="q8">
+                        <option value=""></option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -165,6 +172,7 @@
                 <div class="form-group">
                     <label for="q9">Select a value</label>
                     <select class="form-control" name="q9" id="q9">
+                        <option value=""></option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -181,6 +189,7 @@
                 <div class="form-group">
                     <label for="q10">Select a value</label>
                     <select class="form-control" name="q10" id="q10">
+                        <option value=""></option>
                         <option value="1">1 (Strongly Disagree)</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -204,10 +213,10 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Your Match</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
+                <h3 class="modal-title">Your Match</h3>
             </div>
             <div class="modal-body">
                 <h4 id="friend-match-name">Name</h4>
@@ -222,7 +231,7 @@
         </div>
     </div> 
 
-<!-- <script src="../data/frontend.js"></script>  -->
+ <!-- <script src="../data/frontend.js"></script>   -->
  
 <script>
 
@@ -235,31 +244,34 @@ $(document).ready(function() {
         
         // FOR FORM VALIDATOR PLUGIN, NOT WORKING THOUGH
         // $('#newfriendform').validate();
-        validateForm();
         var questionAmount = 10;
-          
         var responseArray = [];
-         
+        var scoreCheck = 0; 
+        var frName = $("#name").val().trim();
+        var frPhoto = $('#picurl').val().trim();
+
         for (var i = 0; i < questionAmount; i++) { 
             let qval = '#q' + (i + 1);
             let scoreVal = Number($(qval).val());
             responseArray.push(scoreVal);
-            // testArr.push(scoreVal); 
+            scoreCheck += scoreVal; 
             console.log('value = '+ scoreVal); 
         }
         
-        var newFriend = {
-            "name": $("#name").val().trim(),
-            "photo": $('#picurl').val().trim(),
-            "scores": responseArray 
-        }  
-        // console.log(testArr);  
-        console.log(newFriend);   
+        validateForm(frName, frPhoto,scoreCheck); 
+
+        // var newFriend = {
+        //     "name": $("#name").val().trim(),
+        //     "photo": $('#picurl').val().trim(),
+        //     "scores": responseArray 
+        // }  
+        // // console.log(testArr);  
+        // console.log(newFriend);   
     
-        $.post("/api/friends", newFriend).then( function (data) { 
-            console.log(data); 
-            showMatch(data);
-        });  
+        // $.post("/api/friends", newFriend).then( function (data) { 
+        //     console.log(data); 
+        //     showMatch(data);
+        // });  
     
     });
 
@@ -269,19 +281,38 @@ $(document).ready(function() {
         $('#friend-match').modal('show');
     } 
 
-    function validateForm() {
-    var x = $('#name').val().trim();
-    if (x == "") {
-        alert("Name must be filled out");
-        return false;
+    function validateForm(name, pic, score) {
+        var x = name;
+        var y = pic;
+
+        if (x == "" || y == "" || score < 10 ) {
+            alert("All fields in the form must by completed.");
+            return false;
+        } else {
+            postNewFriend(name, pic, score);
+        }
     }
-}
- 
+    
+    function postNewFriend(name, pic, score) {
+        var newFriend = {
+            "name": name,
+            "photo": pic,
+            "scores": score 
+        }  
+         
+        console.log(newFriend);   
+    
+        $.post("/api/friends", newFriend).then( function (data) { 
+            console.log(data); 
+            showMatch(data);
+        }); 
+    }
+
 });
 
 
-</script> 
-
+</script>
+  
 
 </body> 
 </html>
